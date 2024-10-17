@@ -1,4 +1,4 @@
-# eBook-Library
+# Personal-Library
 A simple front end for a personal library using HTML, CSS, and JavaScript.
 
 ### To-do:
