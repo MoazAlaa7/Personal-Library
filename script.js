@@ -1,16 +1,14 @@
-const myLibrary = [
-  { title: "My Own Book", author: "Moaz Alaa", pages: 100, status: "read" },
-];
+import { StorageService } from "./storage.js";
+
+const myLibrary = StorageService.getLibrary();
 const dialog = document.querySelector("dialog");
 const formButton = document.querySelector(".open-dialog");
 const closeButton = document.querySelector(".close-dialog");
-const submitButton = document.querySelector(".submit-btn");
-const booksTable = document.querySelector(".books-table");
 const tableBody = document.querySelector("tbody");
 
 displayBooks();
 
-function Book(title, author, pages, status) {
+function Book({ title, author, pages, status }) {
   this.title = title;
   this.author = author;
   this.pages = pages;
@@ -19,15 +17,19 @@ function Book(title, author, pages, status) {
 
 function addBook(e) {
   e.preventDefault();
-  const form = e.target;
+  const { title, author, pages, status } = e.target.elements;
 
-  const title = form.title.value;
-  const author = form.author.value;
-  const pages = parseInt(form.pages.value);
-  const status = form.status.value;
-  const newBook = new Book(title, author, pages, status);
+  const bookData = {
+    title: title.value,
+    author: author.value,
+    pages: parseInt(pages.value),
+    status: status.value,
+  };
+
+  const newBook = new Book({ ...bookData });
 
   myLibrary.push(newBook);
+  StorageService.saveLibrary(myLibrary); // Save to localStorage
   displayOneBook(newBook, myLibrary.indexOf(newBook));
   document.querySelector(".add-book-form").reset();
   dialog.close();
@@ -104,6 +106,7 @@ function createCard(book, index) {
 function deleteBook(e) {
   const index = e.target.dataset.index;
   myLibrary.splice(index, 1);
+  StorageService.saveLibrary(myLibrary); // Save to localStorage
   displayBooks();
 }
 
@@ -129,6 +132,7 @@ function toggleStatus(e) {
       book.status = "read";
       break;
   }
+  StorageService.saveLibrary(myLibrary); // Save to localStorage
 }
 
 formButton.addEventListener("click", () => {
@@ -140,4 +144,4 @@ closeButton.addEventListener("click", () => {
   document.querySelector(".add-book-form").reset();
 });
 
-submitButton.addEventListener("click", addBook);
+document.querySelector(".add-book-form").addEventListener("submit", addBook);

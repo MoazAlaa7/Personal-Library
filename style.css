@@ -53,7 +53,7 @@ dialog {
 }
 
 .open-dialog,
-.save-btn {
+.submit-btn {
   background-color: var(--primary-color);
 }
 

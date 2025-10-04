@@ -18,7 +18,7 @@
       <button class="open-dialog" title="Add a book">Add book</button>
     </header>
     <dialog>
-      <form class="add-book-form" method="dialog" onsubmit="addBook(event)">
+      <form class="add-book-form" method="dialog">
         <div class="form-item">
           <label for="title">Title:</label>
           <input type="text" id="title" name="title" required />
@@ -59,7 +59,7 @@
         </div>
 
         <div class="form-buttons">
-          <button type="submit" class="save-btn">Save</button>
+          <button type="submit" class="submit-btn">Submit</button>
           <button class="close-dialog" autofocus>Close</button>
         </div>
       </form>
@@ -82,6 +82,6 @@
         <tbody></tbody>
       </table>
     </main>
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
   </body>
 </html>
